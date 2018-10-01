@@ -32,22 +32,42 @@ end
 player1 = Player.new("moe")
 player2 = Player.new("larry", 60)
 player3 = Player.new("curly", 125)
+player4 = Player.new("daryl", 100)
+player5 = Player.new("daryl", 105)
 
 
-players = [player1, player2, player3]
+class Game
+  attr_reader :title
 
-puts "There are #{players.length} players in the game"
-players.each do |player|
-  # puts player
+  def initialize(title)
+    @title = title
+    @players = []
+  end
+
+  def add_player(player)
+    @players << player
+  end
+
+  def play
+    puts "There are #{@players.length} players in the game"
+    puts @players
+    @players.each do |player|
+      player.blam
+      player.w00t
+      player.w00t
+      puts player
+    end
+  end
 end
 
-players.each do |player|
-  player.blam
-  player.w00t
-  player.w00t
-  puts player
-end
+knuckleheads = Game.new("Knuckleheads")
+knuckleheads.add_player(player1)
+knuckleheads.add_player(player2)
+knuckleheads.add_player(player3)
+# knuckleheads.play
 
-players.pop
-players.push(Player.new("shemp", 90))
-puts players
+newhart = Game.new("Newhart")
+newhart.add_player(player2)
+newhart.add_player(player4)
+newhart.add_player(player5)
+newhart.play
