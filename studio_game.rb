@@ -19,4 +19,5 @@ newhart = Game.new("Newhart")
 newhart.add_player(player2)
 newhart.add_player(player4)
 newhart.add_player(player5)
-newhart.play
+newhart.play(10)
+newhart.print_stats
