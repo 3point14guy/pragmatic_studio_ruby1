@@ -1,3 +1,5 @@
+require_relative 'treasure_trove'
+
 module GameTurn
 
   def self.roll_die
@@ -15,5 +17,8 @@ module GameTurn
       else
         player.w00t
     end
+    treasure = TreasureTrove::TREASURES.sample
+
+    puts "#{player.name} found a #{treasure.name} worth #{treasure.points} points."
   end
 end
