@@ -15,25 +15,33 @@ class Game
     @players << player
   end
 
+  def total_points
+    @players.reduce(0) {|sum, player| sum + player.points}
+  end
+
   def print_stats
     strong, wimpy = @players.partition { |player| player.strong? }
 
     puts "#{@title}s Statistics:"
     puts "#{strong.length} strong players:"
     strong.each do |player|
-      puts "\n#{player.name} (#{player.health})"
+      puts "\n#{player.name}'s health: (#{player.health})"
+      puts "#{player.name}'s points: (#{player.points})"
     end
 
     puts "#{wimpy.length} wimpy players:"
     wimpy.each do |player|
-      puts "\n#{player.name} (#{player.health})"
+      puts "\n#{player.name}'s health: (#{player.health})"
+      puts "#{player.name}'s points: (#{player.points})"
     end
+
 
     puts "\n#{@title}s High Scores"
     @players.sort.each do |player|
       formatted_name = player.name.ljust(20, ".")
       puts "#{formatted_name} #{player.score}"
     end
+    puts "\nTotal points of all treasures found = #{self.total_points}"
   end
 
   def play(rounds)
