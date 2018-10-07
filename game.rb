@@ -26,15 +26,18 @@ class Game
     puts "#{strong.length} strong players:"
     strong.each do |player|
       puts "\n#{player.name}'s health: (#{player.health})"
-      puts "#{player.name}'s points: (#{player.points})"
     end
 
     puts "#{wimpy.length} wimpy players:"
     wimpy.each do |player|
       puts "\n#{player.name}'s health: (#{player.health})"
-      puts "#{player.name}'s points: (#{player.points})"
     end
 
+    @players.each do |player|
+      puts "\n#{player.name}'s points breakdown: "
+      player.each_found_treasure { |treasure| puts "#{treasure.name}: #{treasure.points}" }
+      puts "#{player.name}'s total points: (#{player.points})"
+    end
 
     puts "\n#{@title}s High Scores"
     @players.sort.each do |player|
