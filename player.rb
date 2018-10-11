@@ -17,6 +17,11 @@ class Player
     "I'm #{@name} with health = #{@health}, and score = #{score}."
   end
 
+  def self.from_csv(csv_string)
+    name, health = csv_string.split(',')
+    Player.new(name, Integer(health))
+  end
+
   def <=>(other_player)
     other_player.score <=> score
   end

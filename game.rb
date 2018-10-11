@@ -15,8 +15,38 @@ class Game
     @players << player
   end
 
+  def high_score_entry(player)
+    formatted_name = player.name.ljust(20, ".")
+    "#{formatted_name} #{player.score}"
+  end
+
+  def load_players(from_file)
+    File.readlines(from_file).each do |line|
+      add_player(Player.from_csv(line))
+    end
+  end
+  
+  #alternate using CSV library
+  #require 'csv'
+  # def load_players(from_file)
+  #   CSV.foreach(from_file) do |row|
+  #     player = Player.new(row[0], row[1].to_i)
+  #     add_player(player)
+  #   end
+  # end
+
   def total_points
     @players.reduce(0) {|sum, player| sum + player.points}
+  end
+
+  def save_high_scores(file_name="high_scores.txt")
+    File.open(file_name, "w") do |file|
+      file.puts("#{@title}'s High Scores:")
+      @players.sort.each do |player|
+
+        file.puts high_score_entry(player)
+      end
+    end
   end
 
   def print_stats
@@ -41,8 +71,7 @@ class Game
 
     puts "\n#{@title}s High Scores"
     @players.sort.each do |player|
-      formatted_name = player.name.ljust(20, ".")
-      puts "#{formatted_name} #{player.score}"
+      puts high_score_entry(player)
     end
     puts "\nTotal points of all treasures found = #{self.total_points}"
   end
