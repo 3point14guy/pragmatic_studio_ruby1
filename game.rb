@@ -1,4 +1,6 @@
 require_relative 'player'
+require_relative 'clumsy_player'
+require_relative 'berserk_player'
 require_relative 'die'
 require_relative 'game_turn'
 require_relative 'treasure_trove'
@@ -25,7 +27,7 @@ class Game
       add_player(Player.from_csv(line))
     end
   end
-  
+
   #alternate using CSV library
   #require 'csv'
   # def load_players(from_file)

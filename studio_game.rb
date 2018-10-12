@@ -20,6 +20,10 @@ newhart = Game.new("Newhart")
 # newhart.add_player(player4)
 # newhart.add_player(player5)
 newhart.load_players(ARGV.shift || "players.csv")
+klutz = ClumsyPlayer.new("klutz", 105)
+newhart.add_player(klutz)
+berserk = BerserkPlayer.new("berserker", 50)
+newhart.add_player(berserk)
 
 loop do
   puts "How many rounds do you want to play? (type 'q' to quit)"
