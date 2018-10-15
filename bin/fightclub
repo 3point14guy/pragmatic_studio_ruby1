@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+# This is a Unix shell convention that tells the shell to execute the rest of the file using the ruby interpreter.
+# line 1 keeps us from having to type "ruby" in the command line when running this gem
+# will also need to run this in the command line
+# chmod +x bin/fightclub
+# CHange MODe to an eXecutable file
+
+require_relative '../lib/FightClub/game'
+
+player1 = FightClub::Player.new("moe")
+player2 = FightClub::Player.new("larry", 60)
+player3 = FightClub::Player.new("curly", 125)
+player4 = FightClub::Player.new("daryl", 100)
+player5 = FightClub::Player.new("daryl", 105)
+
+
+
+
+knuckleheads = FightClub::Game.new("Knuckleheads")
+knuckleheads.add_player(player1)
+knuckleheads.add_player(player2)
+knuckleheads.add_player(player3)
+# knuckleheads.play
+
+newhart = FightClub::Game.new("Newhart")
+# newhart.add_player(player2)
+# newhart.add_player(player4)
+# newhart.add_player(player5)
+
+# Here we create a default_player_file variable that contains the absolute directory path to the players.csv file. To get the absolute path, we first get the path to the directory that contains the studio_game.rb file (the name of the current file is held in the __FILE__ variable). That resolves to the bin directory. Then we tack on the players.csv file name, since it's also in the bin directory.
+#
+# By doing it this way, we'll always get the absolute path to the default players.csv file no matter where our code gets installed. And that means our gem will automatically adapt to its environment.
+default_player_file = File.join(File.dirname(__FILE__), 'players.csv')
+newhart.load_players(ARGV.shift || default_player_file)
+klutz = FightClub::ClumsyPlayer.new("klutz", 105, 3)
+newhart.add_player(klutz)
+berserk = FightClub::BerserkPlayer.new("berserker", 50)
+newhart.add_player(berserk)
+
+loop do
+  puts "How many rounds do you want to play? (type 'q' to quit)"
+  answer = gets.chomp.downcase
+
+  case answer
+  when /^\d+$/
+    newhart.play(answer.to_i)
+  when "q"
+    newhart.print_stats
+    break
+  else
+    puts "Please enter a number or 'q' for quit."
+  end
+end
+
+newhart.save_high_scores
